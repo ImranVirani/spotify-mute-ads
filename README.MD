@@ -10,9 +10,4 @@ This script is compatible with Linux/Mac/Windows, although it has only been test
 
 # Using this script
 
-Make sure that Python 3 is installed.
-
-Run
-`pip install -r requirements.txt`
-Then
-`python3 app.py` to start the app
+Make sure that Python 3 is installed, then run pip install -r requirements.txt to install the dependencies for the script, and python3 app.py to run the script
