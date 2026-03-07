@@ -16,8 +16,7 @@ You can provide these values either by:
 
 # NOTE: This script does not violate the Spotify TOS, no adblocker is being used, this just mutes the ads on Spotify by simulating pressing the mute button on your keyboard, the Spotify desktop app is not being modified in any way whatsoever.
 
-This script is compatible with Linux/Mac/Windows, although it has only been tested for Windows
+This script is compatible with Linux/Mac/Windows, although it has only been tested for Windows.
 
-# Using this script
 
-Make sure that Python 3 is installed, then run pip install -r requirements.txt to install the dependencies for the script, and python3 app.py to run the script
+
