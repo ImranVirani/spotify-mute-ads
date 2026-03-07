@@ -1,8 +1,13 @@
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
+from spotipy.oauth2 import SpotifyPKCE
 import time
 from pynput.keyboard import Key, Controller
-import constants
+import os
+
+try:
+    import constants
+except ImportError:
+    constants = None
 keyboard = Controller()
 '''
 keyboard.press(Key.media_volume_mute)
@@ -14,14 +19,18 @@ keyboard.release(Key.media_volume_mute)
 '''
 
 # Spotify API credentials - replace with your own
-CLIENT_ID = constants.CLIENT_ID
-CLIENT_SECRET = constants.CLIENT_SECRET
-REDIRECT_URI = constants.REDIRECT_URI
+CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID") or getattr(constants, "CLIENT_ID", None)
+REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI") or getattr(constants, "REDIRECT_URI", None)
 
-# Set up Spotify authentication
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+if not CLIENT_ID or not REDIRECT_URI:
+    raise RuntimeError(
+        "Missing Spotify configuration. Set SPOTIFY_CLIENT_ID and SPOTIFY_REDIRECT_URI "
+        "environment variables (or define CLIENT_ID and REDIRECT_URI in constants.py)."
+    )
+
+# Set up Spotify authentication (PKCE flow for public clients)
+sp = spotipy.Spotify(auth_manager=SpotifyPKCE(
     client_id=CLIENT_ID,
-    client_secret=CLIENT_SECRET,
     redirect_uri=REDIRECT_URI,
     scope='user-read-playback-state user-modify-playback-state'
 ))
